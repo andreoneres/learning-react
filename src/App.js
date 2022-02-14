@@ -1,82 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
-import { Component } from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { Component } from "react";
 
 class App extends Component {
   state = {
-      name: "André Oliveira",
-      counter: 1
+    posts: [
+      {
+        id: 1,
+        title: "O titulo 1",
+        body: "O corpo 1",
+      },
+      {
+        id: 2,
+        title: "O titulo 2",
+        body: "O corpo 2",
+      },
+      {
+        id: 3,
+        title: "O titulo 3",
+        body: "O corpo 3",
+      },
+    ],
+    count: 1,
   };
 
-  handlePClick = (event) => {
+  timeoutUpdate = null;
 
-    event.preventDefault();
-    
-    const { nome } = this.state;
-
-    this.setState({ name: "Luis" })
-    
+  componentDidMount() {
+    this.handleTimeout();
   }
 
-  handleAClick = (event) => {
-  
-    event.preventDefault();
+  componentDidUpdate() {
+    this.handleTimeout();
+  }
 
-    const { counter } = this.state;
+  handleTimeout = () => { 
+    const { posts, count } = this.state;
+ 
+    posts[0].title = 'O título mudou';
 
-    this.setState({ 
-        counter: counter + 1 
-    })
+    this.timeoutUpdate = setTimeout(() => {
+      this.setState({ posts, count: count + 1 });
+    }, 1000);
+  };
 
+  componentWillUnmount() {
+    clearTimeout(this.timeoutUpdate);
   }
 
   render() {
-
-    const { name, counter } = this.state;
+    const { posts, count } = this.state;
 
     return (
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-              <p
-                onClick={this.handlePClick}
-              >
-                Edit <code>src/App.js</code> and save to reload. {name} {counter}
-              </p>
-              <a
-                onClick={this.handleAClick}
-                className="App-link"
-                href="https://reactjs.org"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn React
-              </a>
-            </header>
+      <div className="App">
+        {posts.map((post) => (
+          <div key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
           </div>
-        );
+        ))}
+        <h1>{count}</h1>
+        <button>Somar</button>
+      </div>
+    );
   }
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;
