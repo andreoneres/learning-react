@@ -6,7 +6,7 @@ import { loadPosts } from "../../components/utils"
 import { Button } from "../../components/button"
 import { TextInput } from "../../components/textInput";
 
-export const Home = (props) => {
+export const Home = () => {
 
   const [posts, setPosts] = useState([])
   const [allPosts, setAllPosts] = useState([])
@@ -16,7 +16,7 @@ export const Home = (props) => {
 
   const noMorePages = page + postsPerPage >= allPosts.length
 
-  const filteredPosts = !!searchValue ? allPosts.filter(post => {
+  const filteredPosts = searchValue ? allPosts.filter(post => {
     return post.title.toLowerCase().includes(searchValue.toLowerCase())
   }) : posts
 
@@ -47,7 +47,7 @@ export const Home = (props) => {
 
   return (
       <section className="container">
-       
+
         <div className="search-container">
           { !!searchValue && (
             <>
@@ -73,8 +73,8 @@ export const Home = (props) => {
             <div className="button-container">
             { !searchValue && (
               <Button
-                text="Load more images..." 
-                onClick={loadMorePosts} 
+                text="Load more images..."
+                onClick={loadMorePosts}
                 disabled={noMorePages}
               />
             )}
