@@ -1,7 +1,9 @@
+/* eslint-env node */
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
@@ -18,5 +20,7 @@ module.exports = {
         "react"
     ],
     "rules": {
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
     }
 }
